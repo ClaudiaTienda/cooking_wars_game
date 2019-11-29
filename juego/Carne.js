@@ -6,6 +6,7 @@ class Carne{
         this.procesada=false;
         this.completa=false;
         this.contador=0;
+        this.contador2=0;
         this.calculos= new Calculos();
     }
 
@@ -41,9 +42,13 @@ class Carne{
         this.modelo2.position.z=player.personaje.position.z;
         }else{
             if(this.contador<201
-            && this.calculos.calcularDistancia(this.modelo.position.x,-15.5,this.modelo.position.z,-61.5)<6){
+            && this.calculos.calcularDistancia(this.modelo.position.x,-15.5,this.modelo.position.z,-61.5)<6){ 
                 this.contador++;
                 console.log(this.contador);
+            }else if(this.contador2<201 
+                &&this.calculos.calcularDistancia(this.modelo.position.x,13.5,this.modelo.position.z,-62)<6){
+                    this.contador2++;
+                    console.log(this.contador2);
             }
         }
         if(this.contador===200){
@@ -52,7 +57,14 @@ class Carne{
             this.modelo2.position.z=-62.5;
             scene.remove(this.modelo);
             scene.add(this.modelo2);
+        }else if(this.contador2===200){
+            this.modelo2.position.x=11.5;
+            this.modelo2.position.y=8.5;
+            this.modelo2.position.z=-62;
+            scene.remove(this.modelo);
+            scene.add(this.modelo2);
         }
+
     }
     
     procesar(){
@@ -61,6 +73,11 @@ class Carne{
             this.modelo.position.x=-13;
             this.modelo.position.y=8.5;
             this.modelo.position.z=-63;
+        }if(this.calculos.calcularDistancia(this.modelo.position.x,13.5,this.modelo.position.z,-61.5)<8 && this.contador<1){
+            this.interactuando=false;
+            this.modelo.position.x=9.5;
+            this.modelo.position.y=8.5;
+            this.modelo.position.z=-62;
         }else if(this.calculos.calcularDistancia(this.modelo2.position.x,plato01.modelo.position.x,this.modelo2.position.z,plato01.modelo.position.z)<9.4 && this.contador>200){
             this.interactuando=false;
             this.procesada=true;

@@ -385,6 +385,17 @@ class Modelos{
                 plato.scale.z=0.03;
 				plato01= new Plato(plato);
 				scene.add(plato);
+
+				plato2=object.clone();
+                plato2.position.x=17;
+                plato2.position.y=5.5;
+				plato2.position.z=-12;
+				plato2.scale.x=0.03;
+				plato2.scale.y=0.03;
+                plato2.scale.z=0.03;
+				plato02= new Plato(plato2);
+				carnes2.agregarPlato(plato2);
+				scene.add(plato2);
 				isWorldReady[2] = true;
 			}
 		);

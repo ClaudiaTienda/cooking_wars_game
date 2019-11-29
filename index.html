@@ -1,0 +1,353 @@
+<html>
+<head>
+	<script type="text/javascript" src="js/libs/jquery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/libs/three/three.js"></script>
+	<script type="text/javascript" src="js/libs/otros/inflate.min.js"></script>
+	<script type="text/javascript" src="js/libs/three/three.min.js"></script>
+	<script type="text/javascript" src="js/libs/three/TGALoader.js"></script>
+	<script type="text/javascript" src="js/libs/three/MTLLoader.js"></script>
+	<script type="text/javascript" src="js/libs/three/OBJLoader.js"></script>
+	<script type="text/javascript" src="js/libs/three/GLTFLoader.js"></script>
+	<script type="text/javascript" src="js/libs/three/FBXLoader.js"></script>
+	<script type="text/javascript" src="js/libs/GamePad.js"></script>
+	<script type="text/javascript" src="juego/Calculos.js"></script>
+	<script type="text/javascript" src="juego/Modelos.js"></script>
+	<script type="text/javascript" src="juego/Game.js"></script>
+	<script type="text/javascript" src="juego/Player.js"></script>
+	<script type="text/javascript" src="juego/Ingrediente.js"></script>
+	<script type="text/javascript" src="juego/Carne.js"></script>
+	<script type="text/javascript" src="juego/Pan.js"></script>
+	<script type="text/javascript" src="juego/Plato.js"></script>
+
+  <title>CookingWars</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/87dd4e93bc.js" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+
+//crear variables escenario
+	var scene;
+	var renderer;
+	var camera;
+	var clock;
+	var deltaTime;
+	var isWorldReady = [ false, false, false,false ];
+//variables para modelos
+
+	var personaje1;
+	var personaje2;
+	var lechuga=[];
+	var tomate=[];
+	var carne=[];
+	var pan=[];
+	var lechuga_cortada;
+	var lechuga_cortada2;
+	var tomate_cortado;
+	var tomate_cortado2;
+	var carne_cocida;
+	var carne_cocida2;
+	var plato;
+	var hamburguesa1;
+	var hamburguesa2;
+//variables para controles(movimiento del personaje)
+
+	var keys= {};
+	var controls;
+
+//variables controles	
+
+	var player01;
+	var player02;
+	var lechugas1= new Ingrediente();
+	var lechugas2= new Ingrediente();
+	var tomates1= new Ingrediente();
+	var tomates2= new Ingrediente();
+	var carnes1=new Carne();
+	var carnes2=new Carne();
+	var pan1= new Pan();
+	var pan2= new Pan();
+	var plato01;
+//variables colisiones
+	var rayCaster;
+	var objetosConColision = [];
+	var calculos = new Calculos();
+	var game = new Game();
+	var listaObjetos=[];
+	var listaObjetos2=[];
+//variable smodelos animacion
+	var modelos= new Modelos(scene);
+	var player1mixer;
+	var player2mixer;
+	var caminando1;
+	var caminando2;
+
+	$(document).ready(function() {
+		
+		setupScene();
+		rayCaster = new THREE.Raycaster();
+
+		modelos.cargarModelos();
+		listaObjetos.push(lechugas1);
+		listaObjetos.push(tomates1);
+		listaObjetos.push(carnes1);
+		listaObjetos.push(pan1);
+		listaObjetos2.push(lechugas2);
+		listaObjetos2.push(tomates2);
+		listaObjetos2.push(carnes2);
+		listaObjetos2.push(pan2);
+		isWorldReady[3]=true;
+		playSound();
+		render();
+
+		document.addEventListener('keydown', onKeyDown);
+		document.addEventListener('keyup', onKeyUp);
+	});
+
+//funcion carga objetos
+function loadOBJWithMTL(path, objFile, mtlFile, onLoadCallback) {
+		
+		var mtl =  new THREE.MTLLoader();
+
+		mtl.setPath( path );
+
+		mtl.load( mtlFile , (materialCargado) => {
+			// Este bloque de codigo solo se ejecutara
+			// cuando se complete la carga del material
+
+			var obj = new THREE.OBJLoader();
+			obj.setPath( path );
+			obj.setMaterials( materialCargado );
+			obj.load( objFile , (objetoCargado) => {
+				// Este bloque de codigo solo se ejecutara
+				// cuando el OBJ esta cargado
+				
+
+				onLoadCallback( objetoCargado );
+			});
+		});
+	}
+//termina funcion cargar objetos
+
+
+
+	function onKeyDown(event) {
+		keys[String.fromCharCode(event.keyCode)] = true;
+	}
+	function onKeyUp(event) {
+		keys[String.fromCharCode(event.keyCode)] = false;
+	}
+	let controller = new GamePad();
+//render
+	function render() {
+		requestAnimationFrame(render);
+		deltaTime = clock.getDelta();	
+
+		var yaw = 0;
+		var forward = 0;
+		var backward=0;
+		var yaw2 = 0;
+		var forward2 = 0;
+		var backward2=0;
+		var colisionando1= false;
+		var colisionando2= false;
+		
+		if (keys["A"]) {
+			yaw = 5;
+		} else if (keys["D"]) {
+			yaw = -5;
+		}
+		if (keys["W"]) {
+			forward = 10;
+		} else if (keys["S"]) {
+			backward = -10;
+		}
+		if (keys["F"]) {
+	 		player01.ejecutarAccion(listaObjetos);
+		}
+		if (keys["J"]) {
+			yaw2 = 5;
+		} else if (keys["L"]) {
+			yaw2 = -5;
+		}
+		if (keys["I"]) {
+			forward2 = 10;
+		} else if (keys["K"]) {
+			backward2 = -10;
+		}
+		if (keys["O"]) {
+	 		player02.ejecutarAccion(listaObjetos2);
+		}
+		controller.update();
+
+		if (isWorldReady[0] && isWorldReady[1] && isWorldReady[2]&& isWorldReady[3]) {
+
+			
+				for(let i= 0; i<objetosConColision.length; i++){
+					let distancia= calculos.calcularDistancia(personaje1.position.x,objetosConColision[i].position.x,personaje1.position.z,objetosConColision[i].position.z);
+					if(distancia<5)colisionando1=true;
+				}
+				
+				if(!colisionando1 && personaje1.position.z>-60 && personaje1.position.z<-20 && personaje1.position.x>-35 && personaje1.position.x<-7){
+					personaje1.translateZ(forward * deltaTime);
+					personaje1.translateZ(backward * deltaTime);
+					if(personaje1.position.z>-60 && personaje1.position.z<-20 && personaje1.position.x>-35 && personaje1.position.x<-7){
+					}else{
+						personaje1.translateZ(-forward * deltaTime);
+						personaje1.translateZ(-backward * deltaTime);
+					}
+				}	
+
+				for(let i= 0; i<objetosConColision.length; i++){
+					let distancia= calculos.calcularDistancia(personaje2.position.x,objetosConColision[i].position.x,personaje2.position.z,objetosConColision[i].position.z);
+					if(distancia<5)colisionando2=true;
+				}
+				
+				if(!colisionando2 && personaje2.position.z>-60 && personaje2.position.z<-20 && personaje2.position.x>4 && personaje2.position.x<30){
+					personaje2.translateZ(forward2 * deltaTime);
+					personaje2.translateZ(backward2 * deltaTime);
+					if(personaje2.position.z>-60 && personaje2.position.z<-20 && personaje2.position.x>4 && personaje2.position.x<30){
+					}else{
+						personaje2.translateZ(-forward2 * deltaTime);
+						personaje2.translateZ(-backward2 * deltaTime);
+					}
+				}
+					// personaje1.position.x += 0.15 * controller.pan.x;
+					//  if(controller.pan.x>8689){
+					// 	 yaw=5;
+					//  }
+					//  if(controller.pan.x<8689){
+					// 	 yaw=-5;
+					//  }
+					//  if(controller.pan.y>8689){
+					// 	 forward=5;
+					//  }
+					//  if(controller.pan.y<8689){
+					// 	 forward=-5;
+					//  }
+				personaje1.rotation.y += yaw * deltaTime;
+				personaje2.rotation.y += yaw2 * deltaTime;
+				for(let i=0; i<this.listaObjetos.length; i++){
+					listaObjetos[i].actualizar(player01);
+				}
+				for(let i=0; i<this.listaObjetos2.length; i++){
+					listaObjetos2[i].actualizar(player02);
+				}
+
+				
+		}
+
+		if(forward>0 || backward>0){
+			modelos.animate(deltaTime);
+		}
+		if(forward2>0 || backward2>0){
+			modelos.animate2(deltaTime);
+		}
+
+		game.update(deltaTime);
+		renderer.render(scene, camera);
+	}
+//termina render
+//reproducir sonido
+function playSound() {
+            var audio = document.getElementById('audioplayer');
+            if (audio.paused) {
+				audio.play();
+            }else{
+                audio.pause();
+            }
+		}
+//termina reproducir sonido
+//escena
+	function setupScene(){
+		var visibleSize = { width: window.innerWidth, height: window.innerHeight};
+		clock = new THREE.Clock();		
+		scene = new THREE.Scene();
+		camera = new THREE.PerspectiveCamera(85, visibleSize.width / visibleSize.height, 0.1, 200);
+		camera.position.z = -20;
+		camera.position.y = 40;
+		camera.rotation.x=-45;
+
+		renderer = new THREE.WebGLRenderer( {precision: "mediump" } );
+		renderer.setClearColor(new THREE.Color(0, 0, 0));
+		renderer.setPixelRatio(visibleSize.width / visibleSize.height);
+		renderer.setSize(visibleSize.width, visibleSize.height);
+
+		var ambientLight = new THREE.AmbientLight(0XFFFFFF);
+		scene.add(ambientLight);
+
+		 var directionalLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 0.4);
+		 directionalLight.position.set(0, 0, 1);
+		 scene.add(directionalLight);
+
+		var light = new THREE.PointLight( 0xffffff, 10, 10 );
+		light.position.set(10, 40, -40 );
+		scene.add( light );
+
+		// var foco = new THREE.PointLight( 0xffffff, 50, 50 );
+		// foco.position.set(0, 60, -60 );
+		// scene.add( foco );
+
+		var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
+		grid.position.y = -1;
+		scene.add(grid);
+
+		$("#scene-section").append(renderer.domElement);
+	}
+//escena
+
+	</script>
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+	<!-- navbar -->
+<nav class="navbar fixed-top navbar-dark bg-dark">
+		<a class="navbar-brand cooking text-warning" href="https://cooking-wars.herokuapp.com/">
+		  Cooking Wars
+		</a>
+		<div class="d-flex flex-row-reverse bd-highlight">
+			<div class="p-2 bd-highlight">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" >
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+			<div class="p-2 bd-highlight">
+			  <ul class="nav navbar-nav ">
+				<li><a href="#"><i class="fas fa-user"></i> Registrarse</a></li>
+				<li><a href="#"><i class="fas fa-sign-in-alt"></i> Entrar</a></li>
+			  </ul></div>
+			<div class="p-2 bd-highlight">
+			  <ul class="nav navbar-nav mr-2">
+			  </ul></div>
+			  	<a href="https://cooking-wars.herokuapp.com/">
+				  <div class="p-2 bd-highlight"><button type="button" class="btn btn-primary btn-lg" onclick="menu()" routerLink="menu">Salir</button></div>
+				</a>
+	  </div>
+	  
+	  </nav>
+	  <!-- navbar -->
+
+	  <audio id="audioplayer" >
+		<source src="cooking_wars_game/multimedia/over.mp3" type="audio/mpeg"/>
+	</audio>
+	
+	<div id="scene-section"></div>
+
+</body>
+<!-- footer -->
+<footer class="mastfoot mt-auto bg-dark text-center">
+		<div class="inner">
+		  <p class="text-light">Creada para: <a href="https://getbootstrap.com/">Multimedia Interactiva</a>, por <a href="https://twitter.com/mdo">@kreuk</a>.</p>
+		</div>
+	  </footer>
+	  <!-- footer -->
+</html>

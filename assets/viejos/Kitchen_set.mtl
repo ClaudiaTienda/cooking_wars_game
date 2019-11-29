@@ -1,0 +1,251 @@
+# Max2Mtl Version 4.0 Mar 10th, 2001
+#
+newmtl Wood_02
+Ka  0.0 0.0 0.0
+Kd  0.5 0.5 0.5
+Ks  0.1 0.1 0.1
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl farfor
+Ka  0.0 0.0 0.0
+Kd  0.9 0.9 0.9
+Ks  0.6 0.6 0.6
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl chrome2
+Ka  0.0 0.0 0.0
+Kd  0.6 0.6 0.7
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl chrome
+Ka  0.0 0.0 0.0
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl def
+Ka  0.0 0.0 0.0
+Kd  0.9 0.9 0.9
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl stoleshenica
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  0.1 0.1 0.1
+d  1.0
+Ns  10.0
+illum 2
+#
+# Multi/Sub Material__105 (3) to come 
+#
+newmtl chrome2
+Ka  0.0 0.0 0.0
+Kd  0.6 0.6 0.7
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl metal
+Ka  0.0 0.0 0.0
+Kd  0.1 0.2 0.2
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl plastic_black
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+# Multi/Sub Material__105 done 
+#
+# Multi/Sub Material__276 (3) to come 
+#
+newmtl farfor
+Ka  0.0 0.0 0.0
+Kd  0.9 0.9 0.9
+Ks  0.6 0.6 0.6
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl farfor_black
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  0.6 0.6 0.6
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl farfor_brown
+Ka  0.0 0.0 0.0
+Kd  0.2 0.2 0.1
+Ks  0.6 0.6 0.6
+d  1.0
+Ns  10.0
+illum 2
+#
+# Multi/Sub Material__276 done 
+#
+newmtl glass_35
+Ka  0.0 0.0 0.0
+Kd  0.4 0.4 0.4
+Ks  0.7 0.7 0.7
+d  0.2
+Ns  10.0
+illum 2
+#
+newmtl Glass
+Ka  0.0 0.0 0.0
+Kd  0.0 0.0 0.0
+Ks  1.0 1.0 1.0
+d  0.0
+Ns  10.0
+illum 2
+#
+# Multi/Sub Material__161 (3) to come 
+#
+newmtl chrome
+Ka  0.0 0.0 0.0
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl plastic_black2
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl plastic_black
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+# Multi/Sub Material__161 done 
+#
+# Multi/Sub Material__116 (2) to come 
+#
+newmtl chrome2
+Ka  0.0 0.0 0.0
+Kd  0.6 0.6 0.7
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl plastic_black2
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+# Multi/Sub Material__116 done 
+#
+newmtl plastic_black2
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+# Multi/Sub Material__231 (6) to come 
+#
+newmtl chrome2
+Ka  0.0 0.0 0.0
+Kd  0.6 0.6 0.7
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl plastic_black
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl plastic_black2
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl Glass
+Ka  0.0 0.0 0.0
+Kd  0.0 0.0 0.0
+Ks  1.0 1.0 1.0
+d  0.0
+Ns  10.0
+illum 2
+#
+newmtl metal_black1
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl chrome
+Ka  0.0 0.0 0.0
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+# Multi/Sub Material__231 done 
+#
+# Multi/Sub Material__138 (2) to come 
+#
+newmtl chrome2
+Ka  0.0 0.0 0.0
+Kd  0.6 0.6 0.7
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+newmtl plastic_black2
+Ka  0.0 0.0 0.0
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  10.0
+illum 2
+#
+# Multi/Sub Material__138 done 
+#
+# EOF

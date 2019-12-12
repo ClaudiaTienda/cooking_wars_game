@@ -376,7 +376,7 @@ class Modelos{
 			'plato_06.obj',
 			'plato_06.mtl',
 			(object) => {
-				plato=object;
+				plato=object.clone();
                 plato.position.x=-24;
                 plato.position.y=5.5;
 				plato.position.z=-12;
@@ -384,6 +384,7 @@ class Modelos{
 				plato.scale.y=0.03;
                 plato.scale.z=0.03;
 				plato01= new Plato(plato);
+				carnes1.agregarPlato(plato);
 				scene.add(plato);
 
 				plato2=object.clone();
@@ -413,6 +414,14 @@ class Modelos{
 				hamburguesa1.scale.x=0.1;
 				hamburguesa1.scale.y=0.1;
 				hamburguesa1.scale.z=0.1;
+
+				hamburguesa2=object.clone();
+                hamburguesa2.position.x=19;
+                hamburguesa2.position.y=5.5;
+				hamburguesa2.position.z=-17.5;
+				hamburguesa2.scale.x=0.1;
+				hamburguesa2.scale.y=0.1;
+				hamburguesa2.scale.z=0.1;
 				isWorldReady[2] = true;
 			}
 		);

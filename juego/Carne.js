@@ -2,6 +2,7 @@ class Carne{
     constructor(){
         this.modelo=null;
         this.modelo2=null;
+        this.plato= new Plato();
         this.interactuando=false;
         this.procesada=false;
         this.completa=false;
@@ -58,7 +59,7 @@ class Carne{
             scene.remove(this.modelo);
             scene.add(this.modelo2);
         }else if(this.contador2===200){
-            this.modelo2.position.x=11.5;
+            this.modelo2.position.x=13.5;
             this.modelo2.position.y=8.5;
             this.modelo2.position.z=-62;
             scene.remove(this.modelo);
@@ -78,13 +79,20 @@ class Carne{
             this.modelo.position.x=9.5;
             this.modelo.position.y=8.5;
             this.modelo.position.z=-62;
-        }else if(this.calculos.calcularDistancia(this.modelo2.position.x,plato01.modelo.position.x,this.modelo2.position.z,plato01.modelo.position.z)<9.4 && this.contador>200){
+        }else if(this.calculos.calcularDistancia(this.modelo2.position.x,plato01.modelo.position.x,this.modelo2.position.z,plato01.modelo.position.z)<11.6 && this.contador>200){
             this.interactuando=false;
             this.procesada=true;
             this.completa=true;
             this.modelo2.position.x=plato01.modelo.position.x+5;
             this.modelo2.position.y=plato01.modelo.position.y;
             this.modelo2.position.z=plato01.modelo.position.z-5;
+        }else if(this.calculos.calcularDistancia(this.modelo2.position.x,plato02.modelo.position.x,this.modelo2.position.z,plato02.modelo.position.z)<11.5 && this.contador2>200){
+            this.interactuando=false;
+            this.procesada=true;
+            this.completa=true;
+            this.modelo2.position.x=plato02.modelo.position.x+5;
+            this.modelo2.position.y=plato02.modelo.position.y;
+            this.modelo2.position.z=plato02.modelo.position.z-5;
         }
     }
 }

@@ -52,6 +52,13 @@ class Pan{
             this.modelo2.position.x=plato01.modelo.position.x+1;
             this.modelo2.position.y=plato01.modelo.position.y;
             this.modelo2.position.z=plato01.modelo.position.z-5;
+        }else if(this.calculos.calcularDistancia(this.modelo.position.x,plato02.modelo.position.x,this.modelo.position.z,plato02.modelo.position.z)<8.6){
+            this.interactuando=false;
+            this.procesada=true;
+            this.completa=true;
+            this.modelo2.position.x=plato02.modelo.position.x+1;
+            this.modelo2.position.y=plato02.modelo.position.y;
+            this.modelo2.position.z=plato02.modelo.position.z-5;
         }
     }
 }

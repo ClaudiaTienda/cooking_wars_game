@@ -20,7 +20,6 @@ class Ingrediente{
         this.plato=plato;
     }
     interactuar(personaje){
-        
         if((!this.interactuando && this.contador===0)|| (!this.interactuando && this.contador>200)){
             this.interactuando=true;
             this.modelo.position.x=personaje.position.x;
@@ -44,6 +43,10 @@ class Ingrediente{
             && this.calculos.calcularDistancia(this.modelo.position.x,-41,this.modelo.position.z,-25)<8){
                 this.contador++;
                 console.log(this.contador);
+            }else if(this.calculos.calcularDistancia(player.personaje.position.x,37,player.personaje.position.z,-25)<10 && this.contador<201
+            && this.calculos.calcularDistancia(this.modelo.position.x,37,this.modelo.position.z,-25)<8){
+                this.contador++;
+                console.log(this.contador);
             }
         }
         if(this.contador===200){
@@ -61,6 +64,11 @@ class Ingrediente{
             this.modelo.position.x=-41;
             this.modelo.position.y=6;
             this.modelo.position.z=-25;
+        }else if(this.calculos.calcularDistancia(this.modelo.position.x,31,this.modelo.position.z,-25)<2 && this.contador<1){
+            this.interactuando=false;
+            this.modelo.position.x=37;
+            this.modelo.position.y=6;
+            this.modelo.position.z=-25;
         }else if(this.calculos.calcularDistancia(this.modelo2.position.x,plato01.modelo.position.x,this.modelo2.position.z,plato01.modelo.position.z)<9 && this.contador>200 && !this.procesada){
             this.interactuando=false;
             this.procesada=true;
@@ -68,6 +76,13 @@ class Ingrediente{
             this.modelo2.position.x=plato01.modelo.position.x+1;
             this.modelo2.position.y=plato01.modelo.position.y;
             this.modelo2.position.z=plato01.modelo.position.z-5;
+        }else if(this.calculos.calcularDistancia(this.modelo2.position.x,plato02.modelo.position.x,this.modelo2.position.z,plato02.modelo.position.z)<9 && this.contador>200 && !this.procesada){
+            this.interactuando=false;
+            this.procesada=true;
+            this.completa=true;
+            this.modelo2.position.x=plato02.modelo.position.x+1;
+            this.modelo2.position.y=plato02.modelo.position.y;
+            this.modelo2.position.z=plato02.modelo.position.z-5;
         }
     }
 }

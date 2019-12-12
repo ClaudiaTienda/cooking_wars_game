@@ -296,6 +296,7 @@ function playSound() {
 		scene.add(grid);
 
 		$("#scene-section").append(renderer.domElement);
+		document.getElementById("puntuacion").style.zIndex="1";
 	}
 //escena
 
@@ -316,6 +317,7 @@ function playSound() {
 		<a class="navbar-brand cooking text-warning" href="https://cooking-wars.herokuapp.com/">
 		  Cooking Wars
 		</a>
+		<div id="puntuacion" class="p-2 bd-highlight text-white" >Puntuacion: </div>
 		<div class="d-flex flex-row-reverse bd-highlight">
 			<div class="p-2 bd-highlight">
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" >
@@ -342,7 +344,9 @@ function playSound() {
 		<source src="cooking_wars_game/multimedia/over.mp3" type="audio/mpeg"/>
 	</audio>
 	
-	<div id="scene-section"></div>
+	<div id="scene-section" style="position:absolute">
+	</div>
+	
 
 </body>
 <!-- footer -->
